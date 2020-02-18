@@ -1,0 +1,38 @@
+EJERCICIOS PREPARCIAL:
+
+1)      Cargar un vector de 10 elementos enteros (con las edades de los clientes mayores a 18 años de una empresa). (Utilizar al menos 3 funciones).
+a.       Mostrarlo.
+b.       Calcular el promedio de esas edades.
+c.       Mostrar la edad del cliente más viejo.
+d.       Generar otro vector con las edades mayores al promedio.  Mostrarlo.
+e.       Ordenar el segundo vector desde la mitad al final. Mostrarlo.
+f.       Quitar la primera edad par del primer vector. Mostrarlo.
+
+2) Ingresar para una encuesta los siguientes datos: Barrio, tipo de ambiente (1-casa, 2- dep., 3-PH), cantidad de ambientes y precio. Se ingresan los datos hasta que el barrio sea FIN. Calcular y mostrar:
+a.       El precio promedio por tipo de inmueble.
+b.       El mayor precio detectado.
+
+3) Cargar un arreglo de 20 elementos reales con las temperaturas de varias ciudades. (Utilizar al menos 3 funciones).
+a.       Mostrar el arreglo.
+b.       Calcular el promedio de la temperatura.
+c.       Mostrar la mayor y menor temperatura.
+d.       Generar otro vector con las temperaturas mayores a 0.  Mostrarlo.
+e.       Ordenar el primer arreglo.  Mostrarlo.
+
+4) Cargar un vector de 50 elementos números reales, los cuales s|on resultados de un senso sobre la calidad de conducción de vehículos en la Ciudad. El valor debe estar comprendido entre 1 y 10, siendo 1 la peor calificación  posible y 10 la mejor.  (Utilizar al menos 3 funciones, requisito para aprobar).
+a.       Cargar el vector.
+b.       Mostrar el vector ingresado.
+c.       Calcular el promedio de los valores.
+d.       Realizar una función que devuelva el máximo registrado.
+e.       Generar otro vector con las valores menores al promedio.  Mostrarlo.
+f.        Ordenar el segundo.  Mostrarlo.
+
+5)Se cargan los siguientes datos en 2 vectores
+  Zona uno		25
+	Zona dos		22
+	Zona tres		26
+Cada campo  representa: Zona y Temperatura promedio
+    Se pide un programa que haga lo siguiente:
+a.	Cargar los datos.
+b.	Mostrar la zona con mayor Temperatura.
+c.	Ordenar los datos segun la tempertura y mostrar

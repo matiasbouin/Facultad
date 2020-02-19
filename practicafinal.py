@@ -95,12 +95,12 @@ def crear_equipos(min, max):
         equipos.append(nombre_equipo)
         fundaciones.append(anio_fundacion)
         
-    respuesta = input("Desea seguir agregando equipos?: s/n")
+    respuesta = input("Desea seguir agregando equipos?: s/n ")
     
     if respuesta == "s":
         nombre_equipo = input("Ingrese nombre del equipo: ")
         
-        while nombre_equipo != "" or len(equipos) < max:
+        while nombre_equipo != "" and len(equipos) < max:
             anio_fundacion = int(input("Ingrese año de fundacion del equipo: "))
             equipos.append(nombre_equipo)
             fundaciones.append(anio_fundacion)
@@ -123,8 +123,8 @@ def ordenar_equipos(equipos, fundaciones):
                 equipos[i] = equipos[j]
                 equipos[j] = aux_2
 
-                print(equipos)
-                print(fundaciones)
+    # print(equipos)
+    # print(fundaciones)
     
     return equipos, fundaciones
 
@@ -137,7 +137,7 @@ def cargar_resultados(equipos):
         
         equipo = input("Ingrese equipo: ")
         
-        if equipo in equipos or equipo not in equipos_que_jugaron:
+        if equipo in equipos and equipo not in equipos_que_jugaron:
             puntaje = int(input("Ingrese puntaje:"))
             equipos_que_jugaron.append(equipo)
             puntos.append(puntaje)
@@ -146,25 +146,26 @@ def cargar_resultados(equipos):
         
         respuesta = input("Desea cargar un resultado? s/n")
 
-        return equipos_que_jugaron, puntos
+    return equipos_que_jugaron, puntos
 
 def quien_gana(equipos_que_jugaron, puntos):
-    mayor = 0
-    equipo_ganador = ""
+    mayor = puntos[0]
+    equipo_ganador = equipos_que_jugaron[0]
     
-    for i in len(range(equipos_que_jugaron)):
+    for i in range(len(equipos_que_jugaron)):
         if puntos[i] > mayor:
+            mayor = puntos[i]
             equipo_ganador = equipos_que_jugaron[i]
     
     print("El equipo que gana es:", equipo_ganador)
 
 def peores_equipos(equipos_que_jugaron, puntos):
-    peores_equipos = [""] * 5
+    peores_equipos = []
     
-    ordenar_equipos(equipos_que_jugaron, puntos)
+    equipos, puntos = ordenar_equipos(equipos_que_jugaron, puntos)
     
-    for i in range(len(peores_equipos)):
-        peores_equipos[i] = equipos[i]
+    for i in range(5):
+        peores_equipos.append(equipos[i])
     
     print("Los peores equipos fueron:")
     print(peores_equipos)
@@ -176,7 +177,7 @@ def main():
     max = 20
     equipos, fundaciones = crear_equipos(min, max)
 
-    ordenar_equipos(equipos, fundaciones)
+    print(ordenar_equipos(equipos, fundaciones))
 
     equipos_que_jugaron, puntos = cargar_resultados(equipos)
 

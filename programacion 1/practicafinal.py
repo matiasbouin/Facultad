@@ -7,67 +7,77 @@ d.       Generar otro vector con las temperaturas mayores a 0.  Mostrarlo.
 e.       Ordenar el primer arreglo.  Mostrarlo.
 
 '''
-# def crear_temperaturas():
-#     temperaturas = [0] * 20
-#     for i in range(len(temperaturas)):
-#         temperaturas[i] = float(input("Ingresa la temperatura: "))
+
+def cargar_temperaturas():
+    array_temperaturas = []
+
+    for i in range(20):
+        valor = int(input("Cargar temperatura"))
+        array_temperaturas.append(valor)
+
+    return array_temperaturas
+
+def promedio(array_temperaturas):
+    suma = 0
+
+    for i in range(len(array_temperaturas)):
+        suma += array_temperaturas[i]
     
-#     return temperaturas
-
-
-# def promedio(temperaturas):
-#     suma = 0
-#     contador = 0
-#     for i in range(len(temperaturas)):
-#         suma += temperaturas[i]
-#         contador += 1
+    promedio = suma/len(array_temperaturas)
     
-#     promedio = suma / contador
+    return promedio
 
-#     return promedio
-
-# def mayor_menor(temperaturas):
-#     mayor = temperaturas[0]
-#     menor = temperaturas[0]
-
-#     for i in range(len(temperaturas)):
-#         if temperaturas[i] > mayor:
-#             mayor = temperaturas[i]
-#         elif temperaturas[i] < menor:
-#             menor = temperaturas[i]
+def mayor_y_menor(array_temperaturas):
+    mayor = array_temperaturas[0]
+    menor = mayor
     
-#     return mayor, menor
-
-# def mayores_a_cero(temperaturas):
-#     mayores_a_cero = []
-#     for i in range(len(temperaturas)):
-#         if temperaturas[i] > 0:
-#             mayores_a_cero.append(temperaturas[i])
+    for i in range(len(array_temperaturas)):
+        
+        if array_temperaturas[i] < menor:
+            menor = array_temperaturas[i]
+        elif array_temperaturas[i] > mayor:
+            mayor = array_temperaturas[i]
     
-#     return mayores_a_cero
+    return mayor, menor
 
-# def ordenar(temperaturas):
-#     for i in range(len(temperaturas)):
-#         for j in range(i+1, len(temperaturas)):
-#             if temperaturas[j] < temperaturas[i]:
-#                 aux = temperaturas[i]
-#                 temperaturas[i] = temperaturas[j]
-#                 temperaturas[j] = aux
+def mayores_a_cero(array_temperaturas):
+    array_mayores_a_cero = []
+
+    for i in range(len(array_temperaturas)):
+        if array_temperaturas[i] > 0:
+            array_mayores_a_cero.append(array_temperaturas[i])
+
+    return array_mayores_a_cero
+
+def ordenar(array_temperaturas):
+    for i in range(len(array_temperaturas)):
+        for j in range(i+1, len(array_temperaturas)):
+            
+            if array_temperaturas[i] > array_temperaturas[j]:
+                aux = array_temperaturas[i]
+                array_temperaturas[i] = array_temperaturas[j]
+                array_temperaturas[j] = aux
     
-#     return temperaturas
+    return array_temperaturas  
+
+def main_t():
+
+    array_temperaturas = cargar_temperaturas()
+    print("")
+    print(array_temperaturas)
+    print("")
+    print(promedio(array_temperaturas))
+    print("")
+    print(mayor_y_menor(array_temperaturas))
+    print("")
+    print(mayores_a_cero(array_temperaturas))
+    print("")
+    print(ordenar(array_temperaturas))
 
 
-# def main():
-#     temperaturas = crear_temperaturas()
-#     promediobb = promedio(temperaturas)
-#     print("El promedio es:", promediobb)
-#     mayor, menor = mayor_menor(temperaturas)
-#     print(mayor, menor)
-#     mayores_cero = mayores_a_cero(temperaturas)
-#     print(mayores_cero)
-#     ordenada = ordenar(temperaturas)
-#     print(ordenada)
-# main()
+
+main_t()
+
 
 '''
 En la AFA por un medio claro y justo le adjudicaron realizar un sistema para un nuevo campeonato de futbol.
@@ -83,12 +93,15 @@ d.    Determinar quien va ganando el torneo
 e.    Mostrar los 5 peores equipos
 '''
 
-
+#Creo mis arrays globales iniciales
 equipos = []
 fundaciones = []
+
+#Defino mi funcion para añadir valores a mis arrays
 def crear_equipos(min, max):
     print("Bienvenido a la creacion de equipos 2.0")
     
+    #Al saber que son 10 equipos cómo mínimo, utilizo un for para solicitar sus nombres
     for i in range(0, min):
         nombre_equipo = input("Ingrese nombre del equipo: ")
         anio_fundacion = int(input("Ingrese año de fundacion del equipo: "))
@@ -100,6 +113,7 @@ def crear_equipos(min, max):
     if respuesta == "s":
         nombre_equipo = input("Ingrese nombre del equipo: ")
         
+        #Utilizo un while para que el usuario inserte el resto de los equipos a eleccion
         while nombre_equipo != "" and len(equipos) < max:
             anio_fundacion = int(input("Ingrese año de fundacion del equipo: "))
             equipos.append(nombre_equipo)
@@ -111,10 +125,11 @@ def crear_equipos(min, max):
 
     return equipos, fundaciones
 
+#Defino mi funcion para ordenar mis arrays segun sus valores // Logica para ordenar
 def ordenar_equipos(equipos, fundaciones):
     for i in range(len(fundaciones)):
         for j in range(i+1, len(fundaciones)):
-            if fundaciones[i] > fundaciones[j]:
+            if fundaciones[i] > fundaciones[j]: #Orden ascendente
                 aux_1 = fundaciones[i]
                 fundaciones[i] = fundaciones[j]
                 fundaciones[j] = aux_1
@@ -128,11 +143,13 @@ def ordenar_equipos(equipos, fundaciones):
     
     return equipos, fundaciones
 
+#Defino mi funcion para crear mis array de resultados y equipos que jugaron
 def cargar_resultados(equipos):
     equipos_que_jugaron = []
     puntos = []
-    respuesta = input("Desea cargar un resultado? s/n")
 
+    #Como el numero de partidos no está determinado, uso un while
+    respuesta = input("Desea cargar un resultado? s/n")
     while respuesta == "s":
         
         equipo = input("Ingrese equipo: ")
@@ -148,10 +165,12 @@ def cargar_resultados(equipos):
 
     return equipos_que_jugaron, puntos
 
+#Defino mi funcion para saber cuál de los equipos va ganando
 def quien_gana(equipos_que_jugaron, puntos):
     mayor = puntos[0]
     equipo_ganador = equipos_que_jugaron[0]
     
+    #Logica para saber el mayor item de un array
     for i in range(len(equipos_que_jugaron)):
         if puntos[i] > mayor:
             mayor = puntos[i]
@@ -159,18 +178,21 @@ def quien_gana(equipos_que_jugaron, puntos):
     
     print("El equipo que gana es:", equipo_ganador)
 
+#Defino mi funcion para saber cuales son los 5 valores mas bajos de un array
 def peores_equipos(equipos_que_jugaron, puntos):
     peores_equipos = []
     
+    #Reutilizo mi funcion para ordenar los equipos
     equipos, puntos = ordenar_equipos(equipos_que_jugaron, puntos)
     
+    #Selecciono y sumo a mi nueva array los valores
     for i in range(5):
         peores_equipos.append(equipos[i])
     
     print("Los peores equipos fueron:")
     print(peores_equipos)
 
-
+#Defino mi funcion principal
 def main():
 
     min = 10

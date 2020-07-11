@@ -12,96 +12,97 @@ d) De dos consecutivos, eliminar el segundo.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct list{
-        int num;
-        struct list *next;
-        } nodo;
+typedef struct list
+{
+    int num;
+    struct list *next;
+} nodo;
 
-void create (nodo *reg)
+void create(nodo *reg)
 {
     printf("Enter a number: ");
-    scanf("%d", &reg -> num);
-    if (reg -> num != 1000)
+    scanf("%d", &reg->num);
+    if (reg->num != 1000)
     {
-        reg -> next = (nodo*)malloc(sizeof(nodo));
-        create(reg -> next);
+        reg->next = (nodo *)malloc(sizeof(nodo));
+        create(reg->next);
     }
     else
     {
-        reg -> next = NULL;
+        reg->next = NULL;
     }
 }
 
-void show (nodo *reg)
+void show(nodo *reg)
 {
-    if (reg -> next != NULL)
+    if (reg->next != NULL)
     {
-        printf("\n%d", reg -> num);
-        show(reg -> next);
+        printf("\n%d", reg->num);
+        show(reg->next);
     }
 }
 
-nodo* insert (nodo *reg)
+nodo *insert(nodo *reg)
 {
     nodo *aux = NULL;
-    while (reg -> next != NULL)
+    while (reg->next != NULL)
     {
-        if (reg -> num == (reg -> next -> num) - 1)
+        if (reg->num == (reg->next->num) - 1)
         {
-            aux = (nodo*)malloc(sizeof(nodo));
-            aux -> num = (reg -> next -> num) + 1;
-            aux -> next = reg -> next -> next;
-            reg -> next -> next = aux;
-            reg = reg -> next -> next -> next;
+            aux = (nodo *)malloc(sizeof(nodo));
+            aux->num = (reg->next->num) + 1;
+            aux->next = reg->next->next;
+            reg->next->next = aux;
+            reg = reg->next->next->next;
         }
         else
         {
-            reg = reg -> next;
+            reg = reg->next;
         }
     }
     return reg;
 }
 
-nodo* eraseFirst (nodo *reg)
+nodo *eraseFirst(nodo *reg)
 {
     nodo *aux = NULL;
-    while (reg -> next != NULL && reg -> next -> next != NULL)
+    while (reg->next != NULL && reg->next->next != NULL)
     {
-        if (reg -> next -> num == (reg -> next -> next -> num) - 1)
+        if (reg->next->num == (reg->next->next->num) - 1)
         {
-            aux = reg -> next -> next;
-            free(reg -> next);
-            reg -> next = aux;
+            aux = reg->next->next;
+            free(reg->next);
+            reg->next = aux;
         }
-        reg = reg -> next;
+        reg = reg->next;
     }
     return reg;
 }
 
-nodo* eraseFirstHead (nodo *reg)
+nodo *eraseFirstHead(nodo *reg)
 {
     nodo *aux = NULL;
-    if (reg -> num == (reg -> next -> num) - 1)
+    if (reg->num == (reg->next->num) - 1)
     {
-        aux = reg -> next;
+        aux = reg->next;
         free(reg);
         reg = aux;
     }
     return reg;
 }
 
-nodo* eraseSecond (nodo *reg)
+nodo *eraseSecond(nodo *reg)
 {
     nodo *aux = NULL;
-    while (reg -> next != NULL && reg -> next -> next != NULL)
+    while (reg->next != NULL && reg->next->next != NULL)
     {
-        if (reg -> num == (reg -> next -> num) - 1)
+        if (reg->num == (reg->next->num) - 1)
         {
-            aux = reg -> next -> next;
-            free(reg -> next);
-            reg -> next = aux;
+            aux = reg->next->next;
+            free(reg->next);
+            reg->next = aux;
         }
-        reg = reg -> next;
+        reg = reg->next;
     }
     return reg;
 }
@@ -109,7 +110,7 @@ nodo* eraseSecond (nodo *reg)
 int main()
 {
     nodo *head = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     create(head);
     printf("\n\n****Original list****");
     show(head);
@@ -125,39 +126,38 @@ int main()
     show(head);
 }
 
-
-
 /*Desarrollar un procedimiento que permita borrar una lista completa (deberá ser lo más
 rápido posible).*/
 
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista{
-        int num;
-        struct lista *sig;
-        } nodo;
-
-void crear (nodo *registro)
+typedef struct lista
 {
-    scanf("%d", &registro -> num);
-    if (registro -> num != 0)
+    int num;
+    struct lista *sig;
+} nodo;
+
+void crear(nodo *registro)
+{
+    scanf("%d", &registro->num);
+    if (registro->num != 0)
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> num);
-        mostrar(registro -> sig);
+        printf("\n%d", registro->num);
+        mostrar(registro->sig);
     }
     else
     {
@@ -165,26 +165,26 @@ void mostrar (nodo *registro)
     }
 }
 
-nodo* eliminar (nodo *registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        aux = registro -> sig -> sig;
-        free(registro -> sig);
-        registro -> sig = aux;
+        aux = registro->sig->sig;
+        free(registro->sig);
+        registro->sig = aux;
         eliminar(registro);
     }
     else
     {
-        if (registro -> sig != NULL && registro -> sig -> sig == NULL)
+        if (registro->sig != NULL && registro->sig->sig == NULL)
         {
-            free(registro -> sig);
-            registro -> sig = NULL;
+            free(registro->sig);
+            registro->sig = NULL;
         }
         else
         {
-            if (registro -> sig == NULL)
+            if (registro->sig == NULL)
             {
                 free(registro);
             }
@@ -193,16 +193,14 @@ nodo* eliminar (nodo *registro)
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro)
+nodo *eliminarCabeza(nodo *registro)
 {
-    
 }
-
 
 int main()
 {
     nodo *head = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     mostrar(head);
     printf("\n\nLista eliminada");
@@ -210,67 +208,67 @@ int main()
     mostrar(head);
 }
 
-
 /*Desarrollar un procedimiento para invertir una lista lineal, es decir, cambiar sus enlaces
 para que aparezcan en orden inverso.*/
 
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista{
-        int num;
-        struct lista *sig;
-        } nodo;
-
-void crear (nodo *registro)
+typedef struct lista
 {
-    scanf("%d", &registro -> num);
-    if (registro -> num != 0)
+    int num;
+    struct lista *sig;
+} nodo;
+
+void crear(nodo *registro)
+{
+    scanf("%d", &registro->num);
+    if (registro->num != 0)
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> num);
-        mostrar(registro -> sig);
+        printf("\n%d", registro->num);
+        mostrar(registro->sig);
     }
     else
     {
-        printf("\n%d", registro -> num);
+        printf("\n%d", registro->num);
     }
 }
 
-nodo* generarInversa (nodo *orig, nodo *nuevo)
+nodo *generarInversa(nodo *orig, nodo *nuevo)
 {
     nodo *aux = orig;
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        while (aux -> sig -> sig != NULL)
+        while (aux->sig->sig != NULL)
         {
-            aux = aux -> sig;
+            aux = aux->sig;
         }
-        if (aux -> sig -> sig == NULL)
+        if (aux->sig->sig == NULL)
         {
-            nuevo -> num = aux -> sig -> num;
-            nuevo -> sig = (nodo*)malloc(sizeof(nodo));
-            free(aux -> sig);
-            aux -> sig = NULL;
-            generarInversa(orig, nuevo -> sig);
+            nuevo->num = aux->sig->num;
+            nuevo->sig = (nodo *)malloc(sizeof(nodo));
+            free(aux->sig);
+            aux->sig = NULL;
+            generarInversa(orig, nuevo->sig);
         }
     }
     else
     {
-        nuevo -> num = orig -> num;
-        nuevo -> sig = NULL;
+        nuevo->num = orig->num;
+        nuevo->sig = NULL;
         free(aux);
     }
     return nuevo;
@@ -279,17 +277,15 @@ nodo* generarInversa (nodo *orig, nodo *nuevo)
 int main()
 {
     nodo *head = NULL, *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\n");
     mostrar(head);
-    new = (nodo*)malloc(sizeof(nodo));
+    new = (nodo *)malloc(sizeof(nodo));
     generarInversa(head, new);
     printf("\n\n");
     mostrar(new);
 }
-
-
 
 /* Desarrollar un procedimiento que, dado un número M, elimine:
 a) el elemento M-ésimo de la lista.
@@ -298,75 +294,76 @@ b) Todos los elementos menores a M.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista{
-        int num;
-        struct lista *sig;
-        } nodo;
-
-void crear (nodo *registro)
+typedef struct lista
 {
-    scanf("%d", &registro -> num);
-    if (registro -> num != 0)
+    int num;
+    struct lista *sig;
+} nodo;
+
+void crear(nodo *registro)
+{
+    scanf("%d", &registro->num);
+    if (registro->num != 0)
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> num);
-        mostrar(registro -> sig);
+        printf("\n%d", registro->num);
+        mostrar(registro->sig);
     }
     else
     {
-        printf("\n%d", registro -> num);
+        printf("\n%d", registro->num);
     }
 }
 
-nodo* eliminar (nodo *registro, int num)
+nodo *eliminar(nodo *registro, int num)
 {
     nodo *aux = NULL;
     int cont = 2;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
         while (cont < num)
         {
-            registro = registro -> sig;
-            cont ++;
+            registro = registro->sig;
+            cont++;
         }
-        aux = registro -> sig -> sig;
-        free(registro -> sig);
-        registro -> sig = aux;
+        aux = registro->sig->sig;
+        free(registro->sig);
+        registro->sig = aux;
     }
     else
     {
-        if (registro -> sig != NULL && registro -> sig -> sig == NULL)
+        if (registro->sig != NULL && registro->sig->sig == NULL)
         {
             if (cont == num || num == 2)
             {
-                free(registro -> sig);
-                registro -> sig = NULL;
+                free(registro->sig);
+                registro->sig = NULL;
             }
         }
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro, int num)
+nodo *eliminarCabeza(nodo *registro, int num)
 {
     nodo *aux = NULL;
     if (num == 1)
     {
-        if (registro -> sig != NULL)
+        if (registro->sig != NULL)
         {
-            aux = registro -> sig;
+            aux = registro->sig;
             free(registro);
             registro = aux;
         }
@@ -379,38 +376,38 @@ nodo* eliminarCabeza (nodo *registro, int num)
     return registro;
 }
 
-nodo* eliminarMenor (nodo *registro, int num)
+nodo *eliminarMenor(nodo *registro, int num)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if (registro -> sig -> num < num)
+        if (registro->sig->num < num)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
             eliminarMenor(registro, num);
         }
         else
         {
-            eliminarMenor(registro -> sig, num);
+            eliminarMenor(registro->sig, num);
         }
     }
-    if (registro -> sig -> sig == NULL && registro -> sig -> num < num)
+    if (registro->sig->sig == NULL && registro->sig->num < num)
     {
-        free(registro -> sig);
-        registro -> sig = NULL;
+        free(registro->sig);
+        registro->sig = NULL;
     }
 }
 
-nodo* eliminarMenorCabeza (nodo *registro, int num)
+nodo *eliminarMenorCabeza(nodo *registro, int num)
 {
     nodo *aux = NULL;
-    if (registro -> num < num)
+    if (registro->num < num)
     {
-        if (registro -> sig != NULL)
+        if (registro->sig != NULL)
         {
-            aux = registro -> sig;
+            aux = registro->sig;
             free(registro);
             registro = aux;
         }
@@ -427,7 +424,7 @@ int main()
 {
     nodo *head = NULL;
     int a;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     mostrar(head);
     printf("\nIngrese un numero: ");
@@ -445,8 +442,6 @@ int main()
     }
 }
 
-
-
 /*
 Dada la siguiente información de los distintos vuelos en Aeroparque, 
 crear una lista simplemente enlazada con:
@@ -463,120 +458,122 @@ luego de la eliminación.
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista {
-        int vuelo;
-        int asientos;
-        int ventas;
-        struct lista *sig;
-        } nodo;
-        
-typedef struct lista2{
-        int vuelo;
-        int ocupacion;
-        struct lista2 *sig;
-        } nodo2;
+typedef struct lista
+{
+    int vuelo;
+    int asientos;
+    int ventas;
+    struct lista *sig;
+} nodo;
 
-void crear (nodo *registro)
+typedef struct lista2
+{
+    int vuelo;
+    int ocupacion;
+    struct lista2 *sig;
+} nodo2;
+
+void crear(nodo *registro)
 {
     printf("Ingrese numero de vuelo: ");
-    scanf("%d", &registro -> vuelo);
-    if (registro -> vuelo > 0)
+    scanf("%d", &registro->vuelo);
+    if (registro->vuelo > 0)
     {
         printf("Ingrese cantidad de asientos: ");
-        scanf("%d", &registro -> asientos);
+        scanf("%d", &registro->asientos);
         printf("Ingrese asientos vendidos: ");
-        scanf("%d", &registro -> ventas);
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        scanf("%d", &registro->ventas);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\nNumero de vuelo: %d", registro -> vuelo);
-        printf("\nCantidad de asientos: %d", registro -> asientos);
-        printf("\nAsientos vendidos: %d", registro -> ventas);
-        mostrar(registro -> sig);
+        printf("\nNumero de vuelo: %d", registro->vuelo);
+        printf("\nCantidad de asientos: %d", registro->asientos);
+        printf("\nAsientos vendidos: %d", registro->ventas);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo2 *nuevo)
+void generar(nodo *orig, nodo2 *nuevo)
 {
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        nuevo -> vuelo = orig -> vuelo;
-        nuevo -> ocupacion = orig -> ventas * 100 / orig -> asientos;
-        nuevo -> sig = (nodo2*)malloc(sizeof(nodo2));
-        generar(orig -> sig, nuevo -> sig);
+        nuevo->vuelo = orig->vuelo;
+        nuevo->ocupacion = orig->ventas * 100 / orig->asientos;
+        nuevo->sig = (nodo2 *)malloc(sizeof(nodo2));
+        generar(orig->sig, nuevo->sig);
     }
     else
     {
-        nuevo -> sig = NULL;
+        nuevo->sig = NULL;
     }
 }
 
-void mostrar2 (nodo2 *registro)
+void mostrar2(nodo2 *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\nVuelo: %d", registro -> vuelo);
-        printf("\nOcupacion: %d", registro -> ocupacion);
-        mostrar2(registro -> sig);
+        printf("\nVuelo: %d", registro->vuelo);
+        printf("\nOcupacion: %d", registro->ocupacion);
+        mostrar2(registro->sig);
     }
 }
 
-nodo* eliminar (nodo *registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    while (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    while (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if ((registro -> sig -> ventas * 100 / registro -> sig -> asientos) < 10)
+        if ((registro->sig->ventas * 100 / registro->sig->asientos) < 10)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
         }
         else
         {
-            registro = registro -> sig;
+            registro = registro->sig;
         }
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro)
+nodo *eliminarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && (registro -> ventas * 100 / registro -> asientos) < 10)
+    if (registro->sig != NULL && (registro->ventas * 100 / registro->asientos) < 10)
     {
-        aux = registro -> sig;
+        aux = registro->sig;
         free(registro);
         registro = aux;
     }
     return registro;
 }
 
-nodo* insertar (nodo *registro)
+nodo *insertar(nodo *registro)
 {
     nodo *aux = NULL;
-    while (registro -> sig != NULL)
+    while (registro->sig != NULL)
     {
-        if (registro -> asientos == registro -> ventas)
+        if (registro->asientos == registro->ventas)
         {
-            aux = (nodo*)malloc(sizeof(nodo));
-            aux -> vuelo = (registro -> vuelo) + 1;
-            aux -> asientos = registro -> asientos;
-            aux -> ventas = 0;
-            aux -> sig = registro -> sig;
-            registro -> sig = aux;
+            aux = (nodo *)malloc(sizeof(nodo));
+            aux->vuelo = (registro->vuelo) + 1;
+            aux->asientos = registro->asientos;
+            aux->ventas = 0;
+            aux->sig = registro->sig;
+            registro->sig = aux;
         }
-        registro = registro -> sig;
+        registro = registro->sig;
     }
 }
 
@@ -584,11 +581,11 @@ int main()
 {
     nodo *head = NULL;
     nodo2 *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\nLista completa");
     mostrar(head);
-    new = (nodo2*)malloc(sizeof(nodo2));
+    new = (nodo2 *)malloc(sizeof(nodo2));
     generar(head, new);
     printf("\n\nLista ocupacion");
     mostrar2(new);
@@ -601,8 +598,6 @@ int main()
     mostrar(head);
 }
 
-
-
 /*
 Estructura: numero, puntero.
 a)	Crear y mostrar la lista con números enteros. Termina con num=-2.
@@ -611,105 +606,106 @@ c)	Eliminar todos los valores menores al promedio de la lista original
 en la lista de números impares. Mostrarla
 */
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct lista{
-        int num;
-        struct lista *sig;
-        } nodo;
-        
-void crear (nodo *registro)
+typedef struct lista
+{
+    int num;
+    struct lista *sig;
+} nodo;
+
+void crear(nodo *registro)
 {
     printf("Ingrese un numero: ");
-    scanf("%d", &registro -> num);
-    if (registro -> num != -2)
+    scanf("%d", &registro->num);
+    if (registro->num != -2)
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> num);
-        mostrar(registro -> sig);
+        printf("\n%d", registro->num);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo *nuevo)
+void generar(nodo *orig, nodo *nuevo)
 {
-    while (orig -> sig != NULL)
+    while (orig->sig != NULL)
     {
-        if (orig -> num % 2 == 1 || orig -> num % 2 == -1)
+        if (orig->num % 2 == 1 || orig->num % 2 == -1)
         {
-            nuevo -> num = orig -> num;
-            nuevo -> sig = (nodo*)malloc(sizeof(nodo));
-            orig = orig -> sig;
-            nuevo = nuevo -> sig;
+            nuevo->num = orig->num;
+            nuevo->sig = (nodo *)malloc(sizeof(nodo));
+            orig = orig->sig;
+            nuevo = nuevo->sig;
         }
         else
         {
-            orig = orig -> sig;
+            orig = orig->sig;
         }
     }
-    nuevo -> sig = NULL;
+    nuevo->sig = NULL;
 }
 
-int promedio (nodo *registro)
+int promedio(nodo *registro)
 {
     int cont = 0, acum = 0;
-    while (registro -> sig != NULL)
+    while (registro->sig != NULL)
     {
         cont++;
-        acum += registro -> num;
-        registro = registro -> sig;
+        acum += registro->num;
+        registro = registro->sig;
     }
     return acum / cont;
 }
 
-nodo* eliminar (nodo *registro, int promedio)
+nodo *eliminar(nodo *registro, int promedio)
 {
     nodo *aux = NULL;
-    while (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    while (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if (registro -> sig -> num < promedio)
+        if (registro->sig->num < promedio)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
         }
-        registro = registro -> sig;
+        registro = registro->sig;
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro, int promedio)
+nodo *eliminarCabeza(nodo *registro, int promedio)
 {
-    nodo *aux = NULL; 
-    if (registro -> num < promedio)
+    nodo *aux = NULL;
+    if (registro->num < promedio)
     {
-        aux = registro -> sig;
+        aux = registro->sig;
         free(registro);
         registro = aux;
     }
     return registro;
 }
-    
-int main ()
+
+int main()
 {
     nodo *head = NULL, *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\nLista original");
     mostrar(head);
-    new = (nodo*)malloc(sizeof(nodo));
+    new = (nodo *)malloc(sizeof(nodo));
     generar(head, new);
     printf("\n\nNueva lista");
     mostrar(new);
@@ -719,8 +715,6 @@ int main ()
     printf("\n\nLista con eliminaciones");
     mostrar(new);
 }
-
-
 
 /* Estructura: numero, puntero.
 a) Crear y mostrar la lista. Termina con num=1000.
@@ -734,101 +728,102 @@ Mostrar la lista.
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista {
-        int num; 
-        struct lista *sig;
-        } nodo;
+typedef struct lista
+{
+    int num;
+    struct lista *sig;
+} nodo;
 
-void crear (nodo *registro)
+void crear(nodo *registro)
 {
     printf("Ingrese un numero: ");
-    scanf("%d", &registro -> num);
-    if (registro -> num != 1000)
+    scanf("%d", &registro->num);
+    if (registro->num != 1000)
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> num);
-        mostrar(registro -> sig);
+        printf("\n%d", registro->num);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo *nuevo)
+void generar(nodo *orig, nodo *nuevo)
 {
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        if ((orig -> num % 3) == 0)
+        if ((orig->num % 3) == 0)
         {
-            nuevo -> num = orig -> num;
-            nuevo -> sig = (nodo*)malloc(sizeof(nodo));
-            generar(orig -> sig, nuevo -> sig);
+            nuevo->num = orig->num;
+            nuevo->sig = (nodo *)malloc(sizeof(nodo));
+            generar(orig->sig, nuevo->sig);
         }
         else
         {
-            generar(orig -> sig, nuevo);
+            generar(orig->sig, nuevo);
         }
     }
 }
 
-nodo* insertar (nodo *registro)
+nodo *insertar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL && registro -> sig -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL && registro->sig->sig->sig != NULL)
     {
-        if ((registro -> sig -> num + registro -> sig -> sig -> num) > 20)
+        if ((registro->sig->num + registro->sig->sig->num) > 20)
         {
-            aux = (nodo*)malloc(sizeof(nodo));
-            aux -> num = 0;
-            aux -> sig = registro -> sig;
-            registro -> sig = aux;
-            insertar(registro -> sig -> sig -> sig);
+            aux = (nodo *)malloc(sizeof(nodo));
+            aux->num = 0;
+            aux->sig = registro->sig;
+            registro->sig = aux;
+            insertar(registro->sig->sig->sig);
         }
         else
         {
-            insertar(registro -> sig);
+            insertar(registro->sig);
         }
     }
     return registro;
 }
 
-nodo* insertarCabeza (nodo *registro)
+nodo *insertarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if ((registro -> num + registro -> sig -> num) > 20)
+        if ((registro->num + registro->sig->num) > 20)
         {
-            aux = (nodo*)malloc(sizeof(nodo));
-            aux -> num = 0;
-            aux -> sig = registro;
+            aux = (nodo *)malloc(sizeof(nodo));
+            aux->num = 0;
+            aux->sig = registro;
             registro = aux;
         }
     }
     return registro;
 }
 
-nodo* eliminar (nodo *registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if ((registro -> num + registro -> sig -> num) < 10)
+        if ((registro->num + registro->sig->num) < 10)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
         }
-        eliminar(registro -> sig);
+        eliminar(registro->sig);
     }
     return registro;
 }
@@ -836,11 +831,11 @@ nodo* eliminar (nodo *registro)
 int main()
 {
     nodo *head = NULL, *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\nLista original");
     mostrar(head);
-    new = (nodo*)malloc(sizeof(nodo));
+    new = (nodo *)malloc(sizeof(nodo));
     generar(head, new);
     printf("\n\nLista generada");
     mostrar(new);
@@ -853,8 +848,6 @@ int main()
     mostrar(head);
 }
 
-
-
 /*Crear una lista con tres numeros enteros que termina con el primer valor en 0. Mostrarla.
 Generar otra lista con la suma de los tres numeros del nodo si la suma de los mismos supera a 10.
 Insertar antes de cada nodo otro nodo con la mitad de cada valor del nodo.
@@ -863,137 +856,138 @@ Eliminar aquellos nodos cuya productoria es menor a 30.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista {
-        int num1;
-        int num2;
-        int num3;
-        struct lista *sig;
-        } nodo;
+typedef struct lista
+{
+    int num1;
+    int num2;
+    int num3;
+    struct lista *sig;
+} nodo;
 
-typedef struct lista2 {
-        int suma;
-        struct lista2 *sig;
-        } nodo2;
-        
-void crear (nodo *registro)
+typedef struct lista2
+{
+    int suma;
+    struct lista2 *sig;
+} nodo2;
+
+void crear(nodo *registro)
 {
     printf("\nIngrese numero 1: ");
-    scanf("%d", &registro -> num1);
-    if (registro -> num1 != 0)
+    scanf("%d", &registro->num1);
+    if (registro->num1 != 0)
     {
         printf("\nIngrese numero 2: ");
-        scanf("%d", &registro -> num2);
+        scanf("%d", &registro->num2);
         printf("\nIngrese numero 3: ");
-        scanf("%d", &registro -> num3);
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        scanf("%d", &registro->num3);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d\t%d\t%d", registro -> num1, registro -> num2, registro -> num3);
-        mostrar(registro -> sig);
+        printf("\n%d\t%d\t%d", registro->num1, registro->num2, registro->num3);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo2 *nuevo)
+void generar(nodo *original, nodo2 *nuevo)
 {
-    if ((orig -> num1 + orig -> num2 + orig -> num3) > 10)
+    if ((original->num1 + original->num2 + original->num3) > 10)
     {
-        nuevo -> suma = orig -> num1 + orig -> num2 + orig -> num3;
-        nuevo -> sig = (nodo2*)malloc(sizeof(nodo2));
-        generar(orig -> sig, nuevo -> sig);
+        nuevo->suma = original->num1 + original->num2 + original->num3;
+        nuevo->sig = (nodo2 *)malloc(sizeof(nodo2));
+        generar(original->sig, nuevo->sig);
     }
     else
     {
-        if (orig -> sig != NULL)
+        if (original->sig != NULL)
         {
-            generar(orig -> sig, nuevo);
+            generar(original->sig, nuevo);
         }
         else
         {
-            nuevo -> sig = NULL;
+            nuevo->sig = NULL;
         }
     }
 }
 
-void mostrar2 (nodo2 *registro)
+void mostrar2(nodo2 *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> suma);
-        mostrar2(registro -> sig);
+        printf("\n%d", registro->suma);
+        mostrar2(registro->sig);
     }
 }
 
-nodo* insertar (nodo *registro)
+nodo *insertar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        aux = (nodo*)malloc(sizeof(nodo));
-        aux -> num1 = registro -> sig -> num1 / 2;
-        aux -> num2 = registro -> sig -> num2 / 2;
-        aux -> num3 = registro -> sig -> num3 / 2;
-        aux -> sig = registro -> sig;
-        registro -> sig = aux;
-        insertar(registro -> sig -> sig);
+        aux = (nodo *)malloc(sizeof(nodo));
+        aux->num1 = registro->sig->num1 / 2;
+        aux->num2 = registro->sig->num2 / 2;
+        aux->num3 = registro->sig->num3 / 2;
+        aux->sig = registro->sig;
+        registro->sig = aux;
+        insertar(registro->sig->sig);
     }
     else
     {
         return registro;
     }
-    
 }
 
-nodo* insertarCabeza (nodo *registro)
+nodo *insertarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        aux = (nodo*)malloc(sizeof(nodo));
-        aux -> num1 = registro -> num1 / 2;
-        aux -> num2 = registro -> num2 / 2;
-        aux -> num3 = registro -> num3 / 2;
-        aux -> sig = registro;
+        aux = (nodo *)malloc(sizeof(nodo));
+        aux->num1 = registro->num1 / 2;
+        aux->num2 = registro->num2 / 2;
+        aux->num3 = registro->num3 / 2;
+        aux->sig = registro;
         registro = aux;
     }
     return registro;
 }
 
-nodo* eliminar (nodo* registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if ((registro -> sig -> num1 * registro -> sig -> num2 * registro -> sig -> num3) < 30)
+        if ((registro->sig->num1 * registro->sig->num2 * registro->sig->num3) < 30)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
             eliminar(registro);
         }
         else
         {
-            eliminar(registro -> sig);
+            eliminar(registro->sig);
         }
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo* registro)
+nodo *eliminarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if ((registro -> num1 * registro -> num2 * registro -> num3) < 30)
+    if ((registro->num1 * registro->num2 * registro->num3) < 30)
     {
-        aux = registro -> sig;
+        aux = registro->sig;
         free(registro);
         registro = aux;
     }
@@ -1002,13 +996,13 @@ nodo* eliminarCabeza (nodo* registro)
 
 int main()
 {
-    nodo *head = NULL; 
+    nodo *head = NULL;
     nodo2 *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\nLista");
     mostrar(head);
-    new = (nodo2*)malloc(sizeof(nodo2));
+    new = (nodo2 *)malloc(sizeof(nodo2));
     generar(head, new);
     printf("\n\nLista de sumas");
     mostrar2(new);
@@ -1022,13 +1016,10 @@ int main()
     mostrar(head);
 }
 
-
-
-
 /*
 Crear y mostrar una lista que contenga dos números enteros (termina con ambos números en cero).
 Generar una lista nueva con el promedio de ambos números.
-Insertar en la lista original la mitad del valor de cada número si la suma de los números 
+Insertar en la lista originalinal la mitad del valor de cada número si la suma de los números 
 es mayor a 15.
 Eliminar aquellos nodos donde el primer valor es múltiplo del segundo valor.
 */
@@ -1036,111 +1027,113 @@ Eliminar aquellos nodos donde el primer valor es múltiplo del segundo valor.
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista {
-        int num1;
-        int num2;
-        struct lista *sig;
-        } nodo;
-        
-typedef struct lista2 {
-        int prom;
-        struct lista2 *sig;
-        } nodo2;
+typedef struct lista
+{
+    int num1;
+    int num2;
+    struct lista *sig;
+} nodo;
 
-void crear (nodo *registro)
+typedef struct lista2
+{
+    int prom;
+    struct lista2 *sig;
+} nodo2;
+
+void crear(nodo *registro)
 {
     printf("\nIngrese numero 1: ");
-    scanf("%d", &registro -> num1);
+    scanf("%d", &registro->num1);
     printf("\nIngrese numero 2: ");
-    scanf("%d", &registro -> num2);
-    if (registro -> num1 == 0 && registro -> num2 == 0)
+    scanf("%d", &registro->num2);
+    if (registro->num1 == 0 && registro->num2 == 0)
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
     else
     {
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> num1 != 0 || registro -> num2 != 0)
+    if (registro->num1 != 0 || registro->num2 != 0)
     {
-        printf("\n%d\t%d", registro -> num1, registro -> num2);
-        mostrar(registro -> sig);
+        printf("\n%d\t%d", registro->num1, registro->num2);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo2 *nuevo)
+void generar(nodo *orig, nodo2 *nuevo)
 {
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        nuevo -> prom = (orig -> num1 + orig -> num2) / 2;
-        nuevo -> sig = (nodo2*)malloc(sizeof(nodo2));
-        generar(orig -> sig, nuevo -> sig);
+        nuevo->prom = (orig->num1 + orig->num2) / 2;
+        nuevo->sig = (nodo2 *)malloc(sizeof(nodo2));
+        generar(orig->sig, nuevo->sig);
     }
     else
     {
-        nuevo -> prom = 0;
-        nuevo -> sig = NULL;
+        nuevo->prom = 0;
+        nuevo->sig = NULL;
     }
 }
 
-void mostrar2 (nodo2* registro)
+void mostrar2(nodo2 *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\n%d", registro -> prom);
-        mostrar2(registro -> sig);
+        printf("\n%d", registro->prom);
+        mostrar2(registro->sig);
     }
 }
 
-nodo* insertar (nodo *registro)
+nodo *insertar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        if ((registro -> num1 + registro -> num2) > 15)
+        if ((registro->num1 + registro->num2) > 15)
         {
-            aux = (nodo*)malloc(sizeof(nodo));
-            aux -> num1 = registro -> num1 / 2;
-            aux -> num2 = registro -> num2 / 2;
-            aux -> sig = registro -> sig;
-            registro -> sig = aux;
-            insertar(registro -> sig -> sig);
+            aux = (nodo *)malloc(sizeof(nodo));
+            aux->num1 = registro->num1 / 2;
+            aux->num2 = registro->num2 / 2;
+            aux->sig = registro->sig;
+            registro->sig = aux;
+            insertar(registro->sig->sig);
         }
         else
         {
-            insertar(registro -> sig);    
+            insertar(registro->sig);
         }
     }
     return registro;
 }
 
-nodo* eliminar (nodo *registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if (registro -> sig -> num2 != 0 && (registro -> sig -> num1 % registro -> sig -> num2) == 0)
+        if (registro->sig->num2 != 0 && (registro->sig->num1 % registro->sig->num2) == 0)
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
         }
-        eliminar(registro -> sig);
+        eliminar(registro->sig);
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro)
+nodo *eliminarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> num1 != 0 && (registro -> num1 % registro -> num2) == 0)
+    if (registro->num1 != 0 && (registro->num1 % registro->num2) == 0)
     {
-        aux = registro -> sig;
+        aux = registro->sig;
         free(registro);
         registro = aux;
     }
@@ -1151,11 +1144,11 @@ int main()
 {
     nodo *head = NULL;
     nodo2 *new = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\n Lista");
     mostrar(head);
-    new = (nodo2*)malloc(sizeof(nodo2));
+    new = (nodo2 *)malloc(sizeof(nodo2));
     generar(head, new);
     printf("\n\n Promedios");
     mostrar2(new);
@@ -1167,7 +1160,6 @@ int main()
     printf("\n\nLista eliminaciones");
     mostrar(head);
 }
-
 
 /*Crear y mostrar una lista simplemente enlazada con los siguientes datos
 año de nacimiento
@@ -1186,163 +1178,165 @@ Mostrar todas las listas en cada caso.*/
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct lista {
-        int anio;
-        int peso;
-        int altura;
-        struct lista *sig;
-        } nodo;
-        
-typedef struct lista2 {
-        int anio;
-        int masa;
-        struct lista2 *sig;
-        } nodo2;
+typedef struct lista
+{
+    int anio;
+    int peso;
+    int altura;
+    struct lista *sig;
+} nodo;
 
-void crear (nodo *registro)
+typedef struct lista2
+{
+    int anio;
+    int masa;
+    struct lista2 *sig;
+} nodo2;
+
+void crear(nodo *registro)
 {
     printf("\nIngrese anio de nacimiento: ");
-    scanf("%d", &registro -> anio);
-    while ((registro -> anio < 1900 || registro -> anio > 2020) && registro -> anio != 0)
+    scanf("%d", &registro->anio);
+    while ((registro->anio < 1900 || registro->anio > 2020) && registro->anio != 0)
     {
         printf("\nReingrese: ");
-        scanf("%d", &registro -> anio);        
+        scanf("%d", &registro->anio);
     }
-    if (registro -> anio > 0)
+    if (registro->anio > 0)
     {
         printf("\nIngrese peso en kg: ");
-        scanf("%d", &registro -> peso);
-        while (registro -> peso < 0)
+        scanf("%d", &registro->peso);
+        while (registro->peso < 0)
         {
             printf("\nReingrese: ");
-            scanf("%d", &registro -> peso); 
+            scanf("%d", &registro->peso);
         }
         printf("\nIngrese altura en cm: ");
-        scanf("%d", &registro -> altura);
-        while (registro -> peso < 0)
+        scanf("%d", &registro->altura);
+        while (registro->peso < 0)
         {
             printf("\nReingrese: ");
-            scanf("%d", &registro -> altura); 
+            scanf("%d", &registro->altura);
         }
-        registro -> sig = (nodo*)malloc(sizeof(nodo));
-        crear(registro -> sig);
+        registro->sig = (nodo *)malloc(sizeof(nodo));
+        crear(registro->sig);
     }
     else
     {
-        registro -> sig = NULL;
+        registro->sig = NULL;
     }
 }
 
-void mostrar (nodo *registro)
+void mostrar(nodo *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\nNacimiento: %d", registro -> anio);
-        printf("\nPeso: %d", registro -> peso);
-        printf("\nAltura: %d", registro -> altura);
-        mostrar(registro -> sig);
+        printf("\nNacimiento: %d", registro->anio);
+        printf("\nPeso: %d", registro->peso);
+        printf("\nAltura: %d", registro->altura);
+        mostrar(registro->sig);
     }
 }
 
-void generar (nodo *orig, nodo2 *nuevo)
+void generar(nodo *orig, nodo2 *nuevo)
 {
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        nuevo -> anio = orig -> anio;
-        nuevo -> masa = orig -> peso / ((orig -> altura / 100) * (orig -> altura / 100));
-        nuevo -> sig = (nodo2*)malloc(sizeof(nodo2));
-        generar(orig -> sig, nuevo -> sig);
+        nuevo->anio = orig->anio;
+        nuevo->masa = orig->peso / ((orig->altura / 100) * (orig->altura / 100));
+        nuevo->sig = (nodo2 *)malloc(sizeof(nodo2));
+        generar(orig->sig, nuevo->sig);
     }
     else
     {
-        nuevo -> sig = NULL;
+        nuevo->sig = NULL;
     }
 }
 
-void mostrar2 (nodo2 *registro)
+void mostrar2(nodo2 *registro)
 {
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        printf("\nAnio de nacimiento: %d", registro -> anio);
-        printf("\nMasa corporal: %d", registro -> masa);
-        mostrar2(registro -> sig);
+        printf("\nAnio de nacimiento: %d", registro->anio);
+        printf("\nMasa corporal: %d", registro->masa);
+        mostrar2(registro->sig);
     }
 }
 
-nodo2 *insertar (nodo2 *registro)
+nodo2 *insertar(nodo2 *registro)
 {
     nodo2 *aux = NULL;
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        if (registro -> masa < 24)
+        if (registro->masa < 24)
         {
-            aux = (nodo2*)malloc(sizeof(nodo));
-            aux -> anio = registro -> anio;
-            aux -> masa = 1;
-            aux -> sig = registro -> sig;
-            registro -> sig = aux;
-            insertar(registro -> sig -> sig);
+            aux = (nodo2 *)malloc(sizeof(nodo));
+            aux->anio = registro->anio;
+            aux->masa = 1;
+            aux->sig = registro->sig;
+            registro->sig = aux;
+            insertar(registro->sig->sig);
         }
         else
         {
-            insertar(registro -> sig);
+            insertar(registro->sig);
         }
     }
     return registro;
 }
 
-void generarSobrepeso (nodo2 *orig, nodo2 *nuevo)
+void generarSobrepeso(nodo2 *orig, nodo2 *nuevo)
 {
-    if (orig -> sig != NULL)
+    if (orig->sig != NULL)
     {
-        if (orig -> masa > 25)
+        if (orig->masa > 25)
         {
-            nuevo -> anio = orig -> anio;
-            nuevo -> masa = orig -> masa;
-            nuevo -> sig = (nodo2*)malloc(sizeof(nodo2));
-            generarSobrepeso(orig -> sig, nuevo -> sig);
+            nuevo->anio = orig->anio;
+            nuevo->masa = orig->masa;
+            nuevo->sig = (nodo2 *)malloc(sizeof(nodo2));
+            generarSobrepeso(orig->sig, nuevo->sig);
         }
         else
         {
-            generarSobrepeso(orig -> sig, nuevo);
+            generarSobrepeso(orig->sig, nuevo);
         }
     }
     else
     {
-        nuevo -> sig = NULL;
+        nuevo->sig = NULL;
     }
 }
 
-nodo* eliminar (nodo *registro)
+nodo *eliminar(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL && registro -> sig -> sig != NULL)
+    if (registro->sig != NULL && registro->sig->sig != NULL)
     {
-        if (registro -> sig -> anio == 1960 || registro -> sig -> anio == 1970 && (registro -> sig -> peso / ((registro -> sig -> altura / 100) * (registro -> sig -> altura / 100)) < 25))
+        if (registro->sig->anio == 1960 || registro->sig->anio == 1970 && (registro->sig->peso / ((registro->sig->altura / 100) * (registro->sig->altura / 100)) < 25))
         {
-            aux = registro -> sig -> sig;
-            free(registro -> sig);
-            registro -> sig = aux;
+            aux = registro->sig->sig;
+            free(registro->sig);
+            registro->sig = aux;
             eliminar(registro);
         }
         else
         {
-            eliminar(registro -> sig);
+            eliminar(registro->sig);
         }
     }
     return registro;
 }
 
-nodo* eliminarCabeza (nodo *registro)
+nodo *eliminarCabeza(nodo *registro)
 {
     nodo *aux = NULL;
-    if (registro -> sig != NULL)
+    if (registro->sig != NULL)
     {
-        if (registro -> anio == 1960 || registro -> anio == 1970)
+        if (registro->anio == 1960 || registro->anio == 1970)
         {
-            if (registro -> peso / ((registro -> altura / 100) * (registro -> altura / 100)) < 25)
+            if (registro->peso / ((registro->altura / 100) * (registro->altura / 100)) < 25)
             {
-                aux = registro -> sig;
+                aux = registro->sig;
                 free(registro);
                 registro = aux;
             }
@@ -1355,18 +1349,18 @@ int main()
 {
     nodo *head = NULL;
     nodo2 *im = NULL, *sp = NULL;
-    head = (nodo*)malloc(sizeof(nodo));
+    head = (nodo *)malloc(sizeof(nodo));
     crear(head);
     printf("\n\nLista original");
     mostrar(head);
-    im = (nodo2*)malloc(sizeof(nodo2));
+    im = (nodo2 *)malloc(sizeof(nodo2));
     generar(head, im);
     printf("\n\nLista indices");
     mostrar2(im);
     insertar(im);
     printf("\n\nLista inserciones");
     mostrar2(im);
-    sp = (nodo2*)malloc(sizeof(nodo2));
+    sp = (nodo2 *)malloc(sizeof(nodo2));
     generarSobrepeso(im, sp);
     printf("\n\nLista sobrepeso");
     mostrar2(sp);
@@ -1375,4 +1369,3 @@ int main()
     printf("\n\nLista eliminaciones");
     mostrar(head);
 }
-
